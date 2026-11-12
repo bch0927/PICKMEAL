@@ -1,5 +1,7 @@
+
 package com.pickmeal.app
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -11,26 +13,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.BorderStroke
 
 @Composable
 fun PickMealOnboarding(
     initialFavoriteFoods: Set<String> = emptySet(),
-    initialAllergies: Set<String> = emptySet(),
     initialBudget: Int = 10000,
     onCancel: (() -> Unit)? = null,
-    onComplete: (Set<String>, Set<String>, Int) -> Unit
+    onComplete: (Set<String>, Int) -> Unit
 ) {
-    // 사용자가 선택한 정보
     val selectedFoods = remember {
         mutableStateListOf<String>().apply {
             addAll(initialFavoriteFoods)
-        }
-    }
-
-    val selectedAllergies = remember {
-        mutableStateListOf<String>().apply {
-            addAll(initialAllergies)
         }
     }
 
@@ -41,13 +34,6 @@ fun PickMealOnboarding(
     val foodTypes = listOf(
         "한식", "중식", "일식",
         "양식", "분식", "아시아 음식"
-    )
-
-    val allergyTypes = listOf(
-        "땅콩", "우유", "달걀",
-        "밀", "대두", "갑각류",
-        "생선", "조개류", "견과류",
-        "메밀", "참깨", "기타/미확인"
     )
 
     Column(
@@ -106,11 +92,10 @@ fun PickMealOnboarding(
                         }
                     }
                 )
+
                 Text(
                     text = food,
-                    modifier = Modifier.padding(
-                        top = 12.dp
-                    )
+                    modifier = Modifier.padding(top = 12.dp)
                 )
             }
         }
@@ -118,53 +103,7 @@ fun PickMealOnboarding(
         HorizontalDivider()
 
         Text(
-            text = "2. 음식 알레르기",
-            fontSize = 19.sp,
-            fontWeight = FontWeight.Bold
-        )
-
-        Text(
-            text = "해당하는 항목만 선택하세요. " +
-                    "알레르기가 없다면 선택하지 않아도 됩니다.",
-            fontSize = 13.sp
-        )
-
-        allergyTypes.forEach { allergy ->
-            Row(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Checkbox(
-                    checked = allergy in selectedAllergies,
-                    onCheckedChange = { checked ->
-                        if (checked) {
-                            selectedAllergies.add(allergy)
-                        } else {
-                            selectedAllergies.remove(allergy)
-                        }
-                    }
-                )
-
-                Text(
-                    text = allergy,
-                    modifier = Modifier.padding(
-                        top = 12.dp
-                    )
-                )
-            }
-        }
-
-        Text(
-            text = "※ 알레르기 정보는 참고용입니다. " +
-                    "원재료 및 교차접촉 여부는 반드시 " +
-                    "음식점에 직접 확인해야 합니다.",
-            color = Color(0xFFB45309),
-            fontSize = 13.sp
-        )
-
-        HorizontalDivider()
-
-        Text(
-            text = "3. 한 끼 식사 예산",
+            text = "2. 한 끼 식사 예산",
             fontSize = 19.sp,
             fontWeight = FontWeight.Bold
         )
@@ -182,9 +121,7 @@ fun PickMealOnboarding(
 
                 Text(
                     text = "%,d원 이하".format(price),
-                    modifier = Modifier.padding(
-                        top = 12.dp
-                    )
+                    modifier = Modifier.padding(top = 12.dp)
                 )
             }
         }
@@ -202,8 +139,8 @@ fun PickMealOnboarding(
                     contentColor = Color(0xFF1D293B)
                 ),
                 border = BorderStroke(
-                    width = 1.dp,
-                    color = Color(0xFF1D293B)
+                    1.dp,
+                    Color(0xFF1D293B)
                 )
             ) {
                 Text(
@@ -218,7 +155,6 @@ fun PickMealOnboarding(
             onClick = {
                 onComplete(
                     selectedFoods.toSet(),
-                    selectedAllergies.toSet(),
                     budget
                 )
             },
