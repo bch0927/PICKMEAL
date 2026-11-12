@@ -85,11 +85,11 @@ KAKAO_REST_API_KEY=YOUR_KAKAO_REST_API_KEY
 
 ## 6. APK 다운로드
 
-- APK 경로: `apk/오늘은 뭐 먹지?_PICKMEAL_release.apk`
+- APK 경로: `apk/오늘은 또 뭐 먹지_PICKMEAL_release.apk`
 - APK 유형: Release
 
 ## 7. 프로젝트 정보
 
 - 앱 이름: PICKMEAL
-- 팀 이름: 오늘은 뭐 먹지?
+- 팀 이름: 오늘은 또 뭐 먹지?
 - 참가 공모전: 2026 현대자동차그룹 차량용 앱 개발 공모전
